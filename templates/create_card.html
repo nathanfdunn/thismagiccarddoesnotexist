@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Card</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+        .highlight {
+            animation: highlight 2s forwards;
+        }
+    
+        @keyframes highlight {
+            0% { background-color: white; }
+            50% { background-color: rgb(227, 193, 227); }
+            100% { background-color: white; }
+        }
+    </style>
+    <script>
+        {% if existing_card %}
+        // var decodedString = atob('existing_card_b64');
+        var existingCard ={{existing_card | tojson | safe}};
+        {% else %}
+        var existingCard = null;
+        {% endif %}
+
+
+
+        var ideas = [
+            "A sorcery that lets you steal artifacts",
+            "A creature that damages flyers",
+            "An enchantment that creates a protective barrier",
+            "A legendary creature with a powerful, unique ability",
+            "A land card that produces two types of mana",
+            "An instant that counters a non-creature spell",
+            "A creature with 'double strike' and 'vigilance'",
+            "A sorcery that shuffles all graveyards into their owner's libraries",
+            "An enchantment that grants lifelink to all creatures you control",
+            "A planeswalker card with a game-changing ultimate ability",
+            "A creature that can only be blocked by three or more creatures",
+            "An instant that destroys all artifacts and enchantments",
+            "A land that taps for colorless mana and can be sacrificed for a card draw",
+            "A sorcery that allows you to scry and draw cards",
+            "A creature that can transform into a different creature",
+            "An enchantment that forces opponents to skip their next combat phase",
+            "A legendary artifact with a unique activation ability",
+            "A planeswalker with a starting loyalty of 6",
+            "An instant that deals damage equal to the number of cards in your hand",
+            "A creature with 'hexproof' and 'deathtouch'",
+            "An enchantment that creates a token copy of target creature",
+            "A land card that can be tapped for any color of mana",
+            "A sorcery that lets you search your library for a specific card",
+            "A creature that can regenerate",
+            "An instant that counters target creature spell",
+            "A legendary creature that can't be countered",
+            "An enchantment that grants 'indestructible' to a creature",
+            "A planeswalker with an ability that copies target instant or sorcery",
+            "A creature with 'trample' and 'haste'",
+            "A sorcery that creates a token copy of target creature",
+            "A land that taps for two mana, but deals damage to you each turn",
+            "An instant that returns all creatures to their owner's hands",
+            "A creature with 'protection from all colors'",
+            "An enchantment that forces each player to sacrifice a creature each turn",
+            "A legendary artifact that can exile cards from any graveyard",
+            "A planeswalker with an ability that untaps all your lands",
+            "A sorcery that lets you draw cards equal to the number of creatures you control",
+            "A creature with 'flying' and 'first strike'",
+            "An enchantment that doubles the power and toughness of a creature",
+            "A land that can be tapped for mana of any color, but it enters the battlefield tapped",
+            "An instant that copies target creature's abilities",
+            "A creature with 'vigilance' and 'reach'",
+            "A sorcery that shuffles your graveyard into your library",
+            "An enchantment that gives all creatures 'unblockable'",
+            "A legendary creature with 'partner' that can be paired with another creature",
+            "A planeswalker with a +1 ability that creates a 3/3 creature token",
+            "A creature with 'flash' and 'double strike'",
+            "An artifact that can be tapped for any color of mana",
+            "An instant that prevents all damage dealt this turn",
+            "A land that can transform into a creature",
+            "A sorcery that exchanges control of two target creatures",
+            "An enchantment that prevents all combat damage",
+            "A planeswalker with a -2 ability that destroys target artifact or enchantment",
+            "A creature with 'trample' and 'indestructible'",
+            "A legendary enchantment that affects the entire game",
+            "An instant that creates a token copy of target creature",
+            "A creature with 'protection from artifacts'",
+            "An enchantment that forces opponents to skip their untap step",
+            "A land that can be sacrificed to destroy target land",
+            "A sorcery that lets you search your library for a land card",
+            "A planeswalker with a -3 ability that deals damage to any target",
+            "A creature with 'lifelink' and 'deathtouch'",
+            "An enchantment that grants all creatures 'flying'",
+            "A legendary creature that transforms into a powerful creature when conditions are met",
+            "An instant that gives target creature +X/+X until end of turn",
+            "A land that can be tapped for any color of mana, but it deals damage to you",
+            "A sorcery that exiles all cards from a target player's graveyard",
+            "A creature with 'haste' and 'hexproof'",
+            "An enchantment that creates a token copy of target artifact",
+            "A planeswalker with a +2 ability that gains you life equal to the number of cards in your hand",
+            "A creature with 'protection from creatures'",
+            "An instant that taps all creatures your opponents control",
+            "A land that can be tapped to gain life equal to your devotion to a specific color",
+            "A sorcery that deals damage to each player equal to the number of cards in their hand",
+            "An enchantment that allows you to play an additional land each turn",
+            "A legendary creature with an ability that lets you search for a specific land card",
+            "A planeswalker with a -4 ability that returns all creatures from all graveyards to the battlefield",
+            "A creature with 'flying' and 'indestructible'",
+            "An enchantment that gives all creatures 'trample'",
+            "A land that can transform into an artifact",
+            "A sorcery that exchanges your life total with target player's life total",
+            "A creature with 'double strike' and 'trample'",
+            "An enchantment that prevents all non-combat damage",
+            "A planeswalker with a -5 ability that wins the game for you under certain conditions",
+            "A legendary artifact that can copy the abilities of other artifacts",
+            "An instant that allows you to take an extra turn after this one",
+            "A creature with 'protection from planeswalkers'",
+            "An enchantment that forces players to pay extra mana to cast spells",
+            "A land that can be tapped to draw a card",
+            "A sorcery that creates a token copy of each creature you control",
+            "A creature with 'lifelink' and 'vigilance'",
+            "An enchantment that grants all creatures 'first strike'",
+            "A planeswalker with a +3 ability that creates a token copy of target creature",
+            "A legendary creature with 'indestructible'",
+            "An instant that returns target creature card from your graveyard to the battlefield",
+            "A land that can be tapped for any color of mana, but it enters the battlefield tapped and gains you life",
+            "A sorcery that shuffles all exiled cards into their owner's libraries",
+            "A creature with 'reach' and 'deathtouch'",
+            "An enchantment that grants all creatures 'vigilance'",
+            "A planeswalker with a -6 ability that allows you to control target player's next turn",
+            "A legendary enchantment that can be sacrificed to destroy all creatures",
+            "An instant that counters target instant"
+        ];
+
+        // Skeleton, Outlined, Artwork, Rendered
+        $(function(){
+
+            // const progressSteps = ["Submitted", "Naming Card", "Generating Abilities", "Generating Art", "Finishing"];
+            // let currentStep = 0;
+            // function updateProgressBar() {
+            //     alert('hey')
+            //     currentStep++;
+            //     if (currentStep < progressSteps.length) {
+            //         $('#progress-bar').css('width', (currentStep / progressSteps.length) * 100 + '%');
+            //         $('#progress-status').text(progressSteps[currentStep]);
+            //     }
+            // }
+            // $('#submit').click(updateProgressBar);
+            function updateButtonText(text){
+                $('#submit-text').text(text);
+            }
+
+            function updateProgressBar(proportion) {
+                $('#progress-bar').css('width', proportion * 100 + '%');
+            }
+
+            function updateTextWithHighlight(selector, text) {
+                if ($(selector).text() === text) {
+                    return;
+                }
+
+                $(selector).addClass('highlight').html((text || ' ').replace(/\n/g, '<br>'));
+                setTimeout(function() {
+                    $(selector).removeClass('highlight');
+                }, 2000);
+            }
+
+            function populateAndShowHighFidelity(final_rendered_url) {
+                $('#high-fidelity-card')
+                    .attr('src', final_rendered_url)
+                    .attr('onload', "$('#low-fidelity-card').hide();$('#high-fidelity-card').show();");
+            }
+
+            function populateCardFields(card) {
+                if (card) {
+                    // populateAndShowHighFidelity(card.final_rendered_url);
+
+                    // alert(card.card_name)
+                    updateTextWithHighlight('#card-name', card.card_name);
+                    updateTextWithHighlight('#mana-cost', card.mana_cost);
+                    updateTextWithHighlight('#rules-text', card.rules_text);
+                    updateTextWithHighlight('#card-type', card.card_type);
+                    updateTextWithHighlight('#flavor-text', card.flavor_text);
+                    $('#art-preview').attr('src', card.art_url);
+                    if (card.power !== undefined && card.toughness !== undefined){
+                        updateTextWithHighlight('#power-toughness', card.power + '/' + card.toughness);
+                    }
+                }
+                else {
+                    updateTextWithHighlight('#card-name', "Card Name");
+                    updateTextWithHighlight('#mana-cost', "Mana Cost");
+                    updateTextWithHighlight('#rules-text', "Rules Text");
+                    updateTextWithHighlight('#card-type', "Card Type");
+                    updateTextWithHighlight('#flavor-text', "Flavor Text");
+                    updateTextWithHighlight('#power-toughness', '0/0');
+                }
+            }
+
+
+            populateCardFields(existingCard);
+
+            // alert('why')
+
+            var progressFakeInterval = null;
+            // var cardIsComplete = false;
+            // var cardIsBeingEdited = false;
+            // TODO deprecate
+            let cardStatus = '{{active_page}}';
+            
+            function updatePlacholder(cardStatus) {
+                switch (cardStatus) {
+                    case 'edit':
+                        $('#card-description').attr('placeholder', 'Describe edits e.g. The mana cost is too high, make the artwork more abstract, should say "target opponent" instead of "your opponent"');
+                        break;
+                    case 'copy':
+                        $('#card-description').attr('placeholder', 'Describe modification for new card. e.g. Make it more powerful, make a blue version, make a creature with a similar effect');
+                        break;
+                    case 'create':
+                        $('#card-description').attr('placeholder', 'Describe card. e.g. A big green creature, a new keyword ability, a more broken timewalk');
+                        break;
+                }
+            }
+
+            updatePlacholder(cardStatus);
+
+            switch(cardStatus){
+                case 'copy':
+                    updateButtonText('Create New');
+                    $('#auto-suggest').hide();
+                    break;
+                case 'edit':
+                    updateButtonText('Submit Edits');
+                    $('#auto-suggest').hide();
+                    break;
+            }
+
+            // todo use hidden field
+            let cardId =  existingCard?.id;
+
+            $('#auto-suggest').click(function(){
+                $('#card-description').val(ideas[Math.floor(Math.random() * ideas.length)]);
+            });
+
+            $('#delete-button').click(function(){
+                $.ajax({
+                    url: `/card/${cardId}`,
+                    type: 'DELETE',
+                    success: function(result) {
+                        window.location.href = window.location.href;
+                    }
+                });
+            });
+
+            $('#new-button').click(function(){
+                window.location.href = '/create';
+            });
+            
+
+            // $('#edit-button').click(function(){
+            //     $('#edit-button').hide();
+            //     $('#card-description')
+            //         .attr('placeholder', 'Instructions e.g. The mana cost is too high, make the artwork more abstract, should say "target opponent" instead of "your opponent"')
+            //         .val('');
+            //     $('#permalink').hide();
+            //     $('#auto-suggest').hide();
+            //     cardStatus = 'edit'
+            //     // $('#high-fidelity-card').hide();
+            //     // $('#low-fidelity-card').show();
+            //     updateButtonText('Submit Edits');
+            // });
+
+            $('#submit').click(function(){
+                // if (cardStatus == 'complete') {
+                //     // They want to create a new card
+                //     window.location.href = window.location.href;
+                //     return;
+                // }
+
+                if (cardStatus == 'create' || true) {
+                    $('#low-fidelity-card').show();
+                    $('#high-fidelity-card').hide();
+                }
+                // var url = cardStatus == 'edit' ? `/edit/${cardId}` : '/create';
+
+                $('#submit').prop('disabled', true);
+                $('#spinner').attr('style', '');
+                updateButtonText('Submitting...');
+                // return;
+                console.log('this is the current mode/status');
+                console.log(cardStatus);
+                $.ajax({
+                    url: '/create',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        'card-description': $('#card-description').val(),
+                        'mode': cardStatus,
+                        'base': cardId
+                    }),
+                    contentType: 'application/json',
+                    // TODO wanna use JSON as well
+                    dataType: 'text',
+                    xhrFields: {
+                        onerror: function(e) {
+                            $('#submit').addClass('btn-danger').removeClass('btn-primary');
+                            updateButtonText('Error');
+                            $('<p>').text('Error details: ' + e.message).insertAfter('#submit');
+                        },
+                        
+                        onprogress: function(e) {
+                            const messages = e.currentTarget.responseText.split('\n\n').filter(Boolean);
+                            const mostRecentRaw = messages[messages.length - 1];
+                            const mostRecent = JSON.parse(mostRecentRaw);
+                            console.log(mostRecent);
+                            const card = mostRecent.card;
+                            const status = mostRecent.status;
+                            const error = mostRecent.error;
+                            switch (status) {
+                                case 'Skeleton':
+                                    updateProgressBar(.1);
+                                    updateButtonText('Creating Text...');
+                                    break;
+                                case 'Outlined':
+                                    updateProgressBar(.33);
+                                    new Promise(resolve => setTimeout(resolve, 0)).then(() => {
+                                        updateTextWithHighlight('#card-name', card.card_name);
+                                        return new Promise(resolve => setTimeout(resolve, 2000));
+                                    }).then(() => {
+                                        updateTextWithHighlight('#mana-cost', card.mana_cost);
+                                        return new Promise(resolve => setTimeout(resolve, 2000));
+                                    }).then(() => {
+                                        updateTextWithHighlight('#card-type', card.card_type);
+                                        return new Promise(resolve => setTimeout(resolve, 2000));
+                                    }).then(() => {
+                                        updateTextWithHighlight('#rules-text', card.rules_text);
+                                        return new Promise(resolve => setTimeout(resolve, 2000));
+                                    }).then(() => {
+                                        updateTextWithHighlight('#flavor-text', card.flavor_text);
+                                        return new Promise(resolve => setTimeout(resolve, 2000));
+                                    }).then(() => {
+                                        if (card.power !== undefined && card.toughness !== undefined){
+                                            updateTextWithHighlight('#power-toughness', card.power + '/' + card.toughness);
+                                        }
+                                    });
+                                    updateButtonText('Creating Artwork...');
+                                    break;
+                                case 'Artwork':
+                                    updateProgressBar(.80);
+                                    $('#art-preview').attr('src', card.art_url);
+                                    updateButtonText('Rendering Card...');
+                                    break;
+                                case 'Rendered':
+                                    updateProgressBar(1);
+                                    
+                                    populateAndShowHighFidelity(card.final_rendered_url);
+
+                                    updateButtonText('Submit Edits');
+                                    // cardIsComplete = true;
+                                    // cardStatus = 'complete';
+                                    // if (cardStatus == 'copy') {
+                                    //     cardStatus = 'edit';
+                                    // }
+                                    cardStatus = 'edit';
+                                    
+                                    $('#submit').removeAttr('disabled');
+                                    $('#spinner').attr('style', 'display:none;');
+                                    var slug = card.card_name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                                    cardId = card.id;
+                                    $('#permalink').attr('href', '/card/' + card.id ).show();
+                                    $('#permalink').show();
+                                    // $('#edit-button').show();
+                                    $('#new-button').show();
+                                    $('#delete-button').show();
+                                    $('#card-description').val('');
+                                    updatePlacholder('edit');
+                                    $('#auto-suggest').hide();
+                                    
+                                    
+                                    
+                                    break;
+                                case 'KeepAlive':
+                                    console.log('received keep-alive message');
+                                    break;
+                                case 'Error':
+                                    console.log('got an error');
+                                    console.log(error);
+                                    $('#submit').addClass('btn-danger').removeClass('btn-primary');
+                                    $('#spinner').hide();
+                                    updateButtonText('Error');
+                                    $('<p>').text('Error details: ' + error).insertAfter('#submit');
+                                    break;
+                            }
+
+                            // $('#results').append(
+                            //     $(`<li>${mostRecent.status}: ${mostRecent.card.card_name} <img src="${mostRecent.card.art_url}">
+                            //         <img src="${mostRecent.card.final_rendered_url}">
+                            //         </li>`)
+                            // );
+                            console.log(e);
+                        }
+                    }
+                });
+            });
+        });
+
+        // function delete_card() {
+
+        // }
+    </script>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <br>
+        <!-- <br>
+
+        <br> -->
+        <div id="card-preview" class="d-flex justify-content-center align-items-center">
+            <div class="card mx-auto" style="width: 18rem;">
+                <div id="low-fidelity-card" class="card-body" style="/*border:2px solid rgba(0,0,0,.125); border-radius:.5rem*/">
+                    <h5 class="card-title" id="card-name">Card Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted" id="mana-cost">Mana Cost</h6>
+                    <div class="card">
+                        <div class="card-body" style="padding:0">
+                            <img id="art-preview" style="width: 100%; aspect-ratio: 4 / 3;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+                        </div>
+                    </div>
+                    <p class="card-text"><small id="card-type">Card Type</small></p>
+                    <p class="card-text" id="rules-text">Rules Text</p>
+                    <p class="card-text"><small><em id="flavor-text">Flavor Text</em></small></p>
+                    <p class="card-text"><small id="power-toughness">0/0</small></p>
+                </div>
+                <img id="high-fidelity-card" src="">
+                <a id="permalink" style="display:none;" href="">Permalink</a>
+            </div>
+        </div>
+        <!-- <div style="display:none2" class="btn-group" role="group" aria-label="Card actions">
+            <button type="button" class="btn btn-secondary">Make edits</button>
+            <button type="button" class="btn btn-secondary">Create Another</button>
+        </div> -->
+        <br>
+        <div hidden class="progress">
+            <div hidden class="progress-bar" role="progressbar" style="width: 0%; display:none;" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <!-- <span id="progress-status">Submitted</span> -->
+            </div>
+        </div>
+        <form method="POST" class="mt-1">
+            <div class="form-group row">
+                <div class="input-group">
+                    <textarea placeholder="" id="card-description" name="card-description" class="form-control"></textarea>
+                    <div class="input-group-append">
+                        <button id="auto-suggest" type="button" class="btn btn-secondary">Auto-suggest</button>
+                    </div>
+                </div>
+            </div>
+            <ul id="results"></ul>
+        </form>
+        <div id="submit-button-wrapper" >
+            <button id="submit" class="btn btn-primary">
+                <span style="display:none" id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span id="submit-text">Create</span>
+            </button>
+
+            <button id="new-button" style="display:none" class="btn btn-secondary">
+                Save and Create Another
+            </button>
+            <button id="delete-button" style="display:none" class="btn btn-secondary">
+                Delete and Start Over
+            </button>
+
+        </div>
+        <br>
+        <br>
+        
+    </div>
+</body>
+</html>
+

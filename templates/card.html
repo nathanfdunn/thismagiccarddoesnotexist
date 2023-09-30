@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Image</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $("#delete-button").click(function(){
+                $.ajax({
+                    url: '/card/{{card.id}}',
+                    type: 'DELETE',
+                    success: function(result) {
+                        // Redirect to homepage
+                        window.location.href = '/';
+                        
+                        // Do something with the result
+                    }
+                });
+            });
+        });
+    </script>
+    
+</head>
+<body>
+    {% include 'header.html' %}
+    <!-- <div style="display: flex; justify-content: center;">
+        <img src="{{ card.final_rendered_url }}" alt="Card Image" style="max-height: 80%">
+    </div> -->
+
+    <!-- <div class="container-fluid" style="padding-left:20px; padding-right:20px;">
+        <div class="row">
+            <div class="col-12 col-md-auto" style="padding: 0.125rem">
+                <a href="/card/{{ card.id }}" class="d-block  h-100">
+                    <img class="img-fluid " src="{{ card.final_rendered_url }}" alt="Card Image">
+                </a>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="d-flex justify-content-center ">
+        <div class=" row" style="max-width:95%;" >
+            <div class="offset-md-3"></div>
+            <div class="col-md-6" style="padding-left: 1rem; padding-right: 1rem;">
+                <!-- <a href="/card/{{ card.id }}" class="d-block  h-100"> -->
+                <img class="d-block img-fluid row mx-auto" src="{{ card.final_rendered_url }}" alt="Card Image">
+                <!-- </a> -->
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center ">
+        <div class="container">
+            <div class="row">
+                <div class="offset-md-4"></div>
+                <div class="col-md-3">
+                    <!-- <a href="/card/{{card.id}}/edit" class="btn btn-primary">Edit</a> -->
+                    
+                    {% if can_delete %}
+                        <a href="/card/{{card.id}}/edit" class="btn btn-primary">Edit</a>
+                        <a href="/card/{{card.id}}/copy" class="btn btn-secondary">Copy</a>
+                        <button id="delete-button" class="btn btn-danger">Delete</button>
+                    {% else %}
+                        <a href="/card/{{card.id}}/copy" class="btn btn-primary">Copy</a>
+                    
+                    {% endif %}
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!-- <textarea name="" id="" cols="30" rows="10" class="blah"></textarea> -->
+
+    
+</body>
+</html>
