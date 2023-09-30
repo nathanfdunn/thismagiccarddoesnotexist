@@ -1,5 +1,5 @@
 # this-magic-card-does-not-exist
-
+[http://www.thismagiccarddoesnotexist.com/](http://www.thismagiccarddoesnotexist.com/)
 
 # TODO
 * Have a fallback for art that trips the safety measures    X
